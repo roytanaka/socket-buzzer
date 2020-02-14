@@ -17,9 +17,11 @@ const io = socket(server);
 
 io.on('connection', socket => {
   console.log('Socket connection established', socket.id);
-  socket.on('HELLO', msg => {
-    console.log(msg);
-    socket.broadcast.emit('HELLO', msg);
+  socket.on('buzzer', payload => {
+    io.emit('answer', payload);
+  });
+  socket.on('reset', payload => {
+    io.emit('clearResponder', payload);
   });
 });
 
